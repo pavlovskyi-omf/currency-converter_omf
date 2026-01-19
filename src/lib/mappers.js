@@ -7,7 +7,7 @@ export const mapCurrencyData = (apiResponse) => {
     const value = Object.values(valueObject)[0];
     result.push({
       date,
-      value: parseFloat(value).toFixed(2),
+      value: parseFloat(value).toFixed(5),
     });
   }
 
