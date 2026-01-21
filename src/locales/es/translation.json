@@ -4,5 +4,6 @@
   "currencyFee": "Tarifa de Conversión, %",
   "fiveDays": "5 Días",
   "oneMonth": "1 Mes",
-  "error": "Error"
+  "error": "Error",
+  "chartValue": "Valor"
 }

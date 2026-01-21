@@ -4,5 +4,6 @@
   "currencyFee": "Currency Fee, %",
   "fiveDays": "5 Days",
   "oneMonth": "1 Month",
-  "error": "Error"
+  "error": "Error",
+  "chartValue": "Value"
 }
