@@ -26,3 +26,5 @@ yarn.lock
 *.sw?
 .env
 
+# Java compiled files
+*.class
