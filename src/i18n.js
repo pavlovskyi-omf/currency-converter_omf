@@ -19,15 +19,13 @@ const resources = {
 // Get language from localStorage or default to 'en'
 const savedLanguage = localStorage.getItem('language') || 'en';
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: savedLanguage,
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: savedLanguage,
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 export default i18n;

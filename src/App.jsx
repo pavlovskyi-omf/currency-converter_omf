@@ -91,8 +91,10 @@ function App() {
     localStorage.setItem('language', lng);
   };
 
-  const finalFee = (parseFloat(secondaryAmount*(currencyFee/100))).toFixed(2);
-  const finalAmount = (parseFloat(secondaryAmount) - parseFloat(finalFee)).toFixed(2);
+  const finalFee = parseFloat(secondaryAmount * (currencyFee / 100)).toFixed(2);
+  const finalAmount = (
+    parseFloat(secondaryAmount) - parseFloat(finalFee)
+  ).toFixed(2);
 
   return (
     <>
@@ -136,13 +138,12 @@ function App() {
               handleCurrencyChange(currency, 'secondary')
             }
           />
-          
+
           <CurrencyFee
             currencyFee={currencyFee}
             onFeeChange={handleFeeChange}
           />
         </div>
-
 
         {loading ? (
           <Skeleton />
@@ -150,10 +151,12 @@ function App() {
           <div>
             <div className="w-full mt-16 mb-16 text-center">
               <p className="text-xl sm:text-2xl mt-4 mb-4">
-                {primaryAmount} {primaryCurrency} = {secondaryAmount} {secondaryCurrency}
+                {primaryAmount} {primaryCurrency} = {secondaryAmount}{' '}
+                {secondaryCurrency}
               </p>
               <p className="text-xl sm:text-4xl mt-4 mb-4">
-                {t('finalAmount')}: {finalAmount} {secondaryCurrency} ({t('fee')}: {finalFee} {secondaryCurrency})
+                {t('finalAmount')}: {finalAmount} {secondaryCurrency} (
+                {t('fee')}: {finalFee} {secondaryCurrency})
               </p>
             </div>
 
@@ -186,7 +189,11 @@ function App() {
           </div>
         )}
       </div>
-      {error && <p>{t('error')}: {error}</p>}
+      {error && (
+        <p>
+          {t('error')}: {error}
+        </p>
+      )}
     </>
   );
 }

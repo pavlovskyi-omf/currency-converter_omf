@@ -83,10 +83,11 @@ describe('App Component', () => {
     render(<App />);
 
     const languageSelects = screen.getAllByRole('combobox');
-    const languageSelect = languageSelects.find(select => 
-      select.querySelector('option[value="en"]') && 
-      select.querySelector('option[value="es"]') &&
-      select.querySelector('option[value="fr"]')
+    const languageSelect = languageSelects.find(
+      (select) =>
+        select.querySelector('option[value="en"]') &&
+        select.querySelector('option[value="es"]') &&
+        select.querySelector('option[value="fr"]')
     );
     expect(languageSelect).toBeDefined();
 
@@ -94,7 +95,10 @@ describe('App Component', () => {
 
     await waitFor(() => {
       expect(mockChangeLanguage).toHaveBeenCalledWith('es');
-      expect(window.localStorage.setItem).toHaveBeenCalledWith('language', 'es');
+      expect(window.localStorage.setItem).toHaveBeenCalledWith(
+        'language',
+        'es'
+      );
     });
   });
 
@@ -102,16 +106,20 @@ describe('App Component', () => {
     render(<App />);
 
     const languageSelects = screen.getAllByRole('combobox');
-    const languageSelect = languageSelects.find(select => 
-      select.querySelector('option[value="en"]') && 
-      select.querySelector('option[value="es"]') &&
-      select.querySelector('option[value="fr"]')
+    const languageSelect = languageSelects.find(
+      (select) =>
+        select.querySelector('option[value="en"]') &&
+        select.querySelector('option[value="es"]') &&
+        select.querySelector('option[value="fr"]')
     );
 
     fireEvent.change(languageSelect, { target: { value: 'fr' } });
 
     await waitFor(() => {
-      expect(window.localStorage.setItem).toHaveBeenCalledWith('language', 'fr');
+      expect(window.localStorage.setItem).toHaveBeenCalledWith(
+        'language',
+        'fr'
+      );
     });
   });
 });
