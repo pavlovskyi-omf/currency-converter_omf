@@ -2,6 +2,22 @@ import { describe, it, expect, vi, beforeAll } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      const translations = {
+        finalAmount: 'Final Amount:',
+        fee: 'Fee:',
+        usd: 'US Dollar',
+        brl: 'Brazilian Real',
+        // add others as needed
+      };
+      return translations[key] || key;
+    },
+    i18n: { language: 'en', changeLanguage: vi.fn() },
+  }),
+}));
+
 vi.mock('./hooks/useFetchCurrency/useFetchCurrency', () => ({
   default: vi.fn(() => ({
     data: [
@@ -19,6 +35,13 @@ beforeAll(() => {
     unobserve() {}
     disconnect() {}
   };
+  Object.defineProperty(window, 'localStorage', {
+    value: {
+      getItem: vi.fn(() => 'en'),
+      setItem: vi.fn(),
+    },
+    writable: true,
+  });
 });
 
 describe('App Component', () => {
