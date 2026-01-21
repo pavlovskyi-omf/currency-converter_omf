@@ -2,6 +2,17 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 import CurrencyFee from './CurrencyFee';
 
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      const translations = {
+        currencyFee: 'Currency Fee, %',
+      };
+      return translations[key] || key;
+    },
+  }),
+}));
+
 describe('<CurrencyFee />', () => {
   const mockOnFeeChange = vi.fn();
 

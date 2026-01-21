@@ -1,5 +1,6 @@
 import { ArrowLeftRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import CurrencyInput from '@/components/CurrencyInput/CurrencyInput';
 import CurrencyFee from '@/components/CurrencyFee/CurrencyFee';
 import CurrencyChart from '@/components/CurrencyChart/CurrencyChart';
@@ -20,6 +21,7 @@ const currencyOptions = [
 ];
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [primaryAmount, setPrimaryAmount] = useState('1');
   const [secondaryAmount, setSecondaryAmount] = useState('1');
   const [primaryCurrency, setPrimaryCurrency] = useState('USD');
@@ -84,12 +86,28 @@ function App() {
     setSecondaryCurrency(primaryCurrency);
   };
 
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('language', lng);
+  };
+
   const finalFee = (parseFloat(secondaryAmount*(currencyFee/100))).toFixed(2);
   const finalAmount = (parseFloat(secondaryAmount) - parseFloat(finalFee)).toFixed(2);
 
   return (
     <>
       <div className="w-full">
+        <div className="w-full flex justify-end mb-4">
+          <select
+            value={i18n.language}
+            onChange={(e) => changeLanguage(e.target.value)}
+            className="px-4 py-2 rounded-md bg-custom-grey text-white border border-gray-600"
+          >
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+          </select>
+        </div>
         <div className="w-full flex flex-col justify-center lg:flex-row items-center gap-4 mb-4">
           <CurrencyInput
             currencyPrimary="true"
@@ -135,7 +153,7 @@ function App() {
                 {primaryAmount} {primaryCurrency} = {secondaryAmount} {secondaryCurrency}
               </p>
               <p className="text-xl sm:text-4xl mt-4 mb-4">
-                Final Amount: {finalAmount} {secondaryCurrency} (Fee: {finalFee} {secondaryCurrency})
+                {t('finalAmount')}: {finalAmount} {secondaryCurrency} ({t('fee')}: {finalFee} {secondaryCurrency})
               </p>
             </div>
 
@@ -145,13 +163,13 @@ function App() {
                   className={`hover:bg-transparent hover:text-gray-100 ${period === '5' ? 'active' : ''}`}
                   onClick={() => setPeriod('5')}
                 >
-                  5 Days
+                  {t('fiveDays')}
                 </Button>
                 <Button
                   className={`hover:bg-transparent hover:text-gray-100 ${period === '30' ? 'active' : ''}`}
                   onClick={() => setPeriod('30')}
                 >
-                  1 Month
+                  {t('oneMonth')}
                 </Button>
               </div>
               <CurrencyChart period={period} data={currencyData} />
@@ -168,7 +186,7 @@ function App() {
           </div>
         )}
       </div>
-      {error && <p>Erro: {error}</p>}
+      {error && <p>{t('error')}: {error}</p>}
     </>
   );
 }

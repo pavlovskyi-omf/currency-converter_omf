@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/input';
 
 const CurrencyFee = ({
   currencyFee,
   onFeeChange,
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="flex w-full lg:w-[500px] lg:flex-row items-center border border-custom-grey p-3 rounded-xl bg-custom-grey">
       <label htmlFor="currency-fee" className="text-white mr-2">
-        Currency Fee, %
+        {t('currencyFee')}
       </label>
       <input
         id="currency-fee"
