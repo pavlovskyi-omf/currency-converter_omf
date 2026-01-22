@@ -185,3 +185,27 @@
   background-color: #747bff;
   color: #fff;
 }
+
+/* Make dropdowns 90% opacity */
+.language-switcher select,
+select.language-switcher {
+  opacity: 0.9;
+}
+
+/* Remove visible border for language selector and its dropdown */
+.language-switcher select,
+.language-switcher select option,
+select.language-switcher,
+select.language-switcher option {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Hide default dropdown arrow on some browsers when appearance is none */
+.language-switcher select::-ms-expand {
+  display: none;
+}

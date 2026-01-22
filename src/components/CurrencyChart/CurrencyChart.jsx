@@ -5,15 +5,16 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-
-const chartConfig = {
-  value: {
-    label: 'Valor',
-    color: '#747bff',
-  },
-};
+import { useTranslation } from 'react-i18next';
 
 function CurrencyChart({ data, period }) {
+  const { t } = useTranslation();
+  const chartConfig = {
+    value: {
+      label: t('currency.value'),
+      color: '#747bff',
+    },
+  };
   const sortedData = Array.isArray(data)
     ? [...data].sort((a, b) => new Date(a.date) - new Date(b.date))
     : [];

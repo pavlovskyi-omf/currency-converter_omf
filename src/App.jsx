@@ -1,5 +1,6 @@
 import { ArrowLeftRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import CurrencyInput from '@/components/CurrencyInput/CurrencyInput';
 import CurrencyFee from '@/components/CurrencyFee/CurrencyFee';
 import CurrencyChart from '@/components/CurrencyChart/CurrencyChart';
@@ -7,19 +8,27 @@ import { Button } from '@/components/ui/button';
 import Skeleton from '@/components/Skeleton/Skeleton';
 import useFetchCurrency from '@/hooks/useFetchCurrency/useFetchCurrency';
 import './App.css';
+import LanguageSwitcher from '@/components/LanguageSwitcher/LanguageSwitcher';
 
-const currencyOptions = [
-  { flag: 'BR', name: 'Brazilian Real', currency: 'BRL' },
-  { flag: 'US', name: 'US Dollar', currency: 'USD' },
-  { flag: 'CA', name: 'Canadian Dollar', currency: 'CAD' },
-  { flag: 'EU', name: 'Euro', currency: 'EUR' },
-  { flag: 'GB', name: 'British Pound', currency: 'GBP' },
-  { flag: 'JP', name: 'Japanese Yen', currency: 'JPY' },
-  { flag: 'UA', name: 'Ukrainian Hryvnia', currency: 'UAH' },
-  { flag: 'PL', name: 'Polish Zloty', currency: 'PLN' },
-];
+  const currencyOptions = [
+    { flag: 'BR', name: 'Brazilian Real', currency: 'BRL' },
+    { flag: 'US', name: 'US Dollar', currency: 'USD' },
+    { flag: 'CA', name: 'Canadian Dollar', currency: 'CAD' },
+    { flag: 'EU', name: 'Euro', currency: 'EUR' },
+    { flag: 'GB', name: 'British Pound', currency: 'GBP' },
+    { flag: 'JP', name: 'Japanese Yen', currency: 'JPY' },
+    { flag: 'UA', name: 'Ukrainian Hryvnia', currency: 'UAH' },
+    { flag: 'PL', name: 'Polish Zloty', currency: 'PLN' },
+  ];
+
+  
 
 function App() {
+  const { t } = useTranslation();
+  const localizedCurrencyOptions = currencyOptions.map((opt) => ({
+    ...opt,
+    name: t(`currency.currencies.${opt.currency}`, { defaultValue: opt.name }),
+  }));
   const [primaryAmount, setPrimaryAmount] = useState('1');
   const [secondaryAmount, setSecondaryAmount] = useState('1');
   const [primaryCurrency, setPrimaryCurrency] = useState('USD');
@@ -53,7 +62,7 @@ function App() {
       ).toFixed(2);
       setSecondaryAmount(newSecondaryAmount);
     } else {
-      setSecondaryAmount('Invalid');
+      setSecondaryAmount(t('currency.invalid'));
     }
   };
 
@@ -90,10 +99,13 @@ function App() {
   return (
     <>
       <div className="w-full">
+        <div className="w-full flex justify-end mb-4">
+          <LanguageSwitcher />
+        </div>
         <div className="w-full flex flex-col justify-center lg:flex-row items-center gap-4 mb-4">
           <CurrencyInput
             currencyPrimary="true"
-            currencyOptions={currencyOptions}
+            currencyOptions={localizedCurrencyOptions}
             amount={primaryAmount}
             currency={primaryCurrency}
             onAmountChange={(amount) => handleAmountChange(amount, 'primary')}
@@ -110,7 +122,7 @@ function App() {
 
           <CurrencyInput
             currencyPrimary="false"
-            currencyOptions={currencyOptions}
+            currencyOptions={localizedCurrencyOptions}
             amount={secondaryAmount}
             currency={secondaryCurrency}
             onAmountChange={(amount) => handleAmountChange(amount, 'secondary')}
@@ -132,10 +144,19 @@ function App() {
           <div>
             <div className="w-full mt-16 mb-16 text-center">
               <p className="text-xl sm:text-2xl mt-4 mb-4">
-                {primaryAmount} {primaryCurrency} = {secondaryAmount} {secondaryCurrency}
+                {t('ui.summary_conversion', {
+                  primaryAmount,
+                  primaryCurrency,
+                  secondaryAmount,
+                  secondaryCurrency,
+                })}
               </p>
               <p className="text-xl sm:text-4xl mt-4 mb-4">
-                Final Amount: {finalAmount} {secondaryCurrency} (Fee: {finalFee} {secondaryCurrency})
+                {t('ui.summary_final', {
+                  finalAmount,
+                  finalFee,
+                  secondaryCurrency,
+                })}
               </p>
             </div>
 
@@ -145,13 +166,13 @@ function App() {
                   className={`hover:bg-transparent hover:text-gray-100 ${period === '5' ? 'active' : ''}`}
                   onClick={() => setPeriod('5')}
                 >
-                  5 Days
+                  {t('ui.period_5')}
                 </Button>
                 <Button
                   className={`hover:bg-transparent hover:text-gray-100 ${period === '30' ? 'active' : ''}`}
                   onClick={() => setPeriod('30')}
                 >
-                  1 Month
+                  {t('ui.period_30')}
                 </Button>
               </div>
               <CurrencyChart period={period} data={currencyData} />
@@ -168,7 +189,7 @@ function App() {
           </div>
         )}
       </div>
-      {error && <p>Erro: {error}</p>}
+      {error && <p>{t('ui.error')}: {error}</p>}
     </>
   );
 }

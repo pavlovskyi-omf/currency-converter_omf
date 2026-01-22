@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import Flag from 'react-world-flags';
 import { Input } from '@/components/ui/input';
+import { useTranslation } from 'react-i18next';
 import {
   Select,
   SelectContent,
@@ -17,6 +18,7 @@ const CurrencyInput = ({
   onAmountChange,
   onCurrencyChange,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="flex w-full lg:w-[500px] lg:flex-row items-center border border-custom-grey p-3 rounded-xl bg-custom-grey">
       <Select
@@ -48,6 +50,7 @@ const CurrencyInput = ({
         type="text"
         value={amount}
         onChange={(e) => onAmountChange(e.target.value)}
+        placeholder={t('currency.placeholder')}
         className="w-full sm:w-[150px] ml-0 sm:ml-2 border-none rounded-none bg-custom-grey text-white-800"
         disabled={currencyPrimary !== 'true'}
       />

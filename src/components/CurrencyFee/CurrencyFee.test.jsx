@@ -1,6 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
 import CurrencyFee from './CurrencyFee';
+import { initTestI18n } from '@/test-utils/i18nForTests';
+
+initTestI18n();
 
 describe('<CurrencyFee />', () => {
   const mockOnFeeChange = vi.fn();

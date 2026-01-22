@@ -1,4 +1,8 @@
 import { describe, it, expect, vi, beforeAll } from 'vitest';
+import { initTestI18n } from '@/test-utils/i18nForTests';
+
+initTestI18n();
+
 import { render, screen, waitFor } from '@testing-library/react';
 import App from './App';
 

@@ -1,0 +1,34 @@
+{
+  "app": {
+    "title": "Convertidor de Moneda"
+  },
+  "currency": {
+    "amount": "Cantidad",
+    "fee": "Comisión de moneda, %",
+    "placeholder": "Ingrese la cantidad",
+    "convert": "Convertir"
+    ,"value": "Valor"
+    ,"invalid": "Inválido"
+  },
+  "currency.currencies": {
+    "BRL": "Real brasileño",
+    "USD": "Dólar estadounidense",
+    "CAD": "Dólar canadiense",
+    "EUR": "Euro",
+    "GBP": "Libra esterlina",
+    "JPY": "Yen japonés",
+    "UAH": "Grívna ucraniana",
+    "PLN": "Zloty polaco"
+  },
+  "ui": {
+    "language": "Idioma",
+    "select_language": "Seleccione el idioma",
+    "days": "Días",
+    "month": "Mes",
+    "summary_conversion": "{{primaryAmount}} {{primaryCurrency}} = {{secondaryAmount}} {{secondaryCurrency}}",
+    "summary_final": "Cantidad final: {{finalAmount}} {{secondaryCurrency}} (Comisión: {{finalFee}} {{secondaryCurrency}})",
+    "period_5": "5 Días",
+    "period_30": "1 Mes"
+  }
+  ,"error": "Error"
+}

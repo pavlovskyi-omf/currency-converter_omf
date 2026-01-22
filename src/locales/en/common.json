@@ -1,0 +1,34 @@
+{
+  "app": {
+    "title": "Currency Converter"
+  },
+  "currency": {
+    "amount": "Amount",
+    "fee": "Currency Fee, %",
+    "placeholder": "Enter amount",
+    "convert": "Convert",
+    "value": "Value",
+    "invalid": "Invalid"
+  },
+  "currency.currencies": {
+    "BRL": "Brazilian Real",
+    "USD": "US Dollar",
+    "CAD": "Canadian Dollar",
+    "EUR": "Euro",
+    "GBP": "British Pound",
+    "JPY": "Japanese Yen",
+    "UAH": "Ukrainian Hryvnia",
+    "PLN": "Polish Zloty"
+  },
+  "ui": {
+    "language": "Language",
+    "select_language": "Select language",
+    "days": "Days",
+    "month": "Month",
+    "summary_conversion": "{{primaryAmount}} {{primaryCurrency}} = {{secondaryAmount}} {{secondaryCurrency}}",
+    "summary_final": "Final Amount: {{finalAmount}} {{secondaryCurrency}} (Fee: {{finalFee}} {{secondaryCurrency}})",
+    "period_5": "5 Days",
+    "period_30": "1 Month"
+  },
+  "error": "Error"
+}

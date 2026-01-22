@@ -1,6 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import CurrencyInput from './CurrencyInput';
+import { initTestI18n } from '@/test-utils/i18nForTests';
+
+initTestI18n();
 
 const currencyOptions = [
   { flag: 'BR', name: 'Brazilian Real', currency: 'BRL' },
