@@ -1,5 +1,6 @@
 ---
-description: 'Debug your application to find and fix a bug'
+name: Debug Agent
+description: "This custom agent systematically identifies, analyzes, and resolves bugs in the developer's application."
 tools: ['edit/editFiles', 'search', 'execute/getTerminalOutput', 'execute/runInTerminal', 'read/terminalLastCommand', 'read/terminalSelection', 'search/usages', 'read/problems', 'execute/testFailure', 'web/fetch', 'web/githubRepo', 'execute/runTests']
 ---
 
