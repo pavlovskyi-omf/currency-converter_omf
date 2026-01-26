@@ -1,4 +1,5 @@
 ---
+description: General coding standards and best practices for the project.
 applyTo: "**"
 ---
 
