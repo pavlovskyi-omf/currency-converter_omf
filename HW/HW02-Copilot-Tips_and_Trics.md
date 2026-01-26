@@ -1,4 +1,4 @@
-# 🏠 Homework: GitHub Copilot Tips & Tricks
+# 🏠 Home Task 02: GitHub Copilot Tips & Tricks
 
 ## Goal
 Apply the GitHub Copilot techniques from the **Tips & Tricks** workshop in a real project and reflect on how they improve your daily development workflow.
