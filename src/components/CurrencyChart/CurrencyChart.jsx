@@ -45,6 +45,7 @@ function CurrencyChart({ data, period }) {
         <YAxis
           type="number"
           domain={[minValue - padding, maxValue + padding]}
+          tickFormatter={(value) => value.toFixed(3)}
         />
         <XAxis
           dataKey="date"
