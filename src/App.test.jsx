@@ -1,6 +1,24 @@
-import { describe, it, expect, vi, beforeAll } from 'vitest';
-import { render, screen, waitFor } from '@testing-library/react';
+import { describe, it, expect, vi, beforeAll, beforeEach } from 'vitest';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import App from './App';
+
+const mockChangeLanguage = vi.fn();
+
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key) => {
+      const translations = {
+        finalAmount: 'Final Amount',
+        fee: 'Fee',
+        fiveDays: '5 Days',
+        oneMonth: '1 Month',
+        error: 'Error',
+      };
+      return translations[key] || key;
+    },
+    i18n: { language: 'en', changeLanguage: mockChangeLanguage },
+  }),
+}));
 
 vi.mock('./hooks/useFetchCurrency/useFetchCurrency', () => ({
   default: vi.fn(() => ({
@@ -19,6 +37,17 @@ beforeAll(() => {
     unobserve() {}
     disconnect() {}
   };
+});
+
+beforeEach(() => {
+  vi.clearAllMocks();
+  Object.defineProperty(window, 'localStorage', {
+    value: {
+      getItem: vi.fn(() => 'en'),
+      setItem: vi.fn(),
+    },
+    writable: true,
+  });
 });
 
 describe('App Component', () => {
@@ -47,6 +76,50 @@ describe('App Component', () => {
       expect(brlElements).toHaveLength(2);
       expect(brlElements[0]).toBeInTheDocument();
       expect(brlElements[1]).toBeInTheDocument();
+    });
+  });
+
+  it('changes language when language selector is used', async () => {
+    render(<App />);
+
+    const languageSelects = screen.getAllByRole('combobox');
+    const languageSelect = languageSelects.find(
+      (select) =>
+        select.querySelector('option[value="en"]') &&
+        select.querySelector('option[value="es"]') &&
+        select.querySelector('option[value="fr"]')
+    );
+    expect(languageSelect).toBeDefined();
+
+    fireEvent.change(languageSelect, { target: { value: 'es' } });
+
+    await waitFor(() => {
+      expect(mockChangeLanguage).toHaveBeenCalledWith('es');
+      expect(window.localStorage.setItem).toHaveBeenCalledWith(
+        'language',
+        'es'
+      );
+    });
+  });
+
+  it('persists language selection to localStorage', async () => {
+    render(<App />);
+
+    const languageSelects = screen.getAllByRole('combobox');
+    const languageSelect = languageSelects.find(
+      (select) =>
+        select.querySelector('option[value="en"]') &&
+        select.querySelector('option[value="es"]') &&
+        select.querySelector('option[value="fr"]')
+    );
+
+    fireEvent.change(languageSelect, { target: { value: 'fr' } });
+
+    await waitFor(() => {
+      expect(window.localStorage.setItem).toHaveBeenCalledWith(
+        'language',
+        'fr'
+      );
     });
   });
 });

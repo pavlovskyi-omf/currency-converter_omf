@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 import {
   ChartContainer,
@@ -6,14 +7,14 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 
-const chartConfig = {
-  value: {
-    label: 'Valor',
-    color: '#747bff',
-  },
-};
-
 function CurrencyChart({ data, period }) {
+  const { t } = useTranslation();
+  const chartConfig = {
+    value: {
+      label: t('chartValue'),
+      color: '#747bff',
+    },
+  };
   const sortedData = Array.isArray(data)
     ? [...data].sort((a, b) => new Date(a.date) - new Date(b.date))
     : [];
