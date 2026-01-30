@@ -6,9 +6,9 @@
     "amount": "Montant",
     "fee": "Frais de change, %",
     "placeholder": "Entrez le montant",
-    "convert": "Convertir"
-    ,"value": "Valeur"
-    ,"invalid": "Invalide"
+    "convert": "Convertir",
+    "value": "Valeur",
+    "invalid": "Invalide"
   },
   "currency.currencies": {
     "BRL": "Real brésilien",
@@ -28,7 +28,7 @@
     "summary_conversion": "{{primaryAmount}} {{primaryCurrency}} = {{secondaryAmount}} {{secondaryCurrency}}",
     "summary_final": "Montant final: {{finalAmount}} {{secondaryCurrency}} (Frais: {{finalFee}} {{secondaryCurrency}})",
     "period_5": "5 Jours",
-    "period_30": "1 Mois"
+    "period_30": "1 Mois",
+    "error": "Erreur"
   }
-  ,"error": "Erreur"
 }

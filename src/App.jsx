@@ -10,18 +10,16 @@ import useFetchCurrency from '@/hooks/useFetchCurrency/useFetchCurrency';
 import './App.css';
 import LanguageSwitcher from '@/components/LanguageSwitcher/LanguageSwitcher';
 
-  const currencyOptions = [
-    { flag: 'BR', name: 'Brazilian Real', currency: 'BRL' },
-    { flag: 'US', name: 'US Dollar', currency: 'USD' },
-    { flag: 'CA', name: 'Canadian Dollar', currency: 'CAD' },
-    { flag: 'EU', name: 'Euro', currency: 'EUR' },
-    { flag: 'GB', name: 'British Pound', currency: 'GBP' },
-    { flag: 'JP', name: 'Japanese Yen', currency: 'JPY' },
-    { flag: 'UA', name: 'Ukrainian Hryvnia', currency: 'UAH' },
-    { flag: 'PL', name: 'Polish Zloty', currency: 'PLN' },
-  ];
-
-  
+const currencyOptions = [
+  { flag: 'BR', name: 'Brazilian Real', currency: 'BRL' },
+  { flag: 'US', name: 'US Dollar', currency: 'USD' },
+  { flag: 'CA', name: 'Canadian Dollar', currency: 'CAD' },
+  { flag: 'EU', name: 'Euro', currency: 'EUR' },
+  { flag: 'GB', name: 'British Pound', currency: 'GBP' },
+  { flag: 'JP', name: 'Japanese Yen', currency: 'JPY' },
+  { flag: 'UA', name: 'Ukrainian Hryvnia', currency: 'UAH' },
+  { flag: 'PL', name: 'Polish Zloty', currency: 'PLN' },
+];
 
 function App() {
   const { t } = useTranslation();
@@ -93,8 +91,10 @@ function App() {
     setSecondaryCurrency(primaryCurrency);
   };
 
-  const finalFee = (parseFloat(secondaryAmount*(currencyFee/100))).toFixed(2);
-  const finalAmount = (parseFloat(secondaryAmount) - parseFloat(finalFee)).toFixed(2);
+  const finalFee = parseFloat(secondaryAmount * (currencyFee / 100)).toFixed(2);
+  const finalAmount = (
+    parseFloat(secondaryAmount) - parseFloat(finalFee)
+  ).toFixed(2);
 
   return (
     <>
@@ -130,13 +130,12 @@ function App() {
               handleCurrencyChange(currency, 'secondary')
             }
           />
-          
+
           <CurrencyFee
             currencyFee={currencyFee}
             onFeeChange={handleFeeChange}
           />
         </div>
-
 
         {loading ? (
           <Skeleton />
@@ -189,7 +188,11 @@ function App() {
           </div>
         )}
       </div>
-      {error && <p>{t('ui.error')}: {error}</p>}
+      {error && (
+        <p>
+          {t('ui.error')}: {error}
+        </p>
+      )}
     </>
   );
 }

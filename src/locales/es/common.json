@@ -6,9 +6,9 @@
     "amount": "Cantidad",
     "fee": "Comisión de moneda, %",
     "placeholder": "Ingrese la cantidad",
-    "convert": "Convertir"
-    ,"value": "Valor"
-    ,"invalid": "Inválido"
+    "convert": "Convertir",
+    "value": "Valor",
+    "invalid": "Inválido"
   },
   "currency.currencies": {
     "BRL": "Real brasileño",
@@ -28,7 +28,7 @@
     "summary_conversion": "{{primaryAmount}} {{primaryCurrency}} = {{secondaryAmount}} {{secondaryCurrency}}",
     "summary_final": "Cantidad final: {{finalAmount}} {{secondaryCurrency}} (Comisión: {{finalFee}} {{secondaryCurrency}})",
     "period_5": "5 Días",
-    "period_30": "1 Mes"
+    "period_30": "1 Mes",
+    "error": "Error"
   }
-  ,"error": "Error"
 }
