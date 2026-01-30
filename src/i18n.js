@@ -18,17 +18,20 @@ function getStoredLanguage() {
 
 // initialize only if not already initialized (avoids re-init during tests)
 if (!i18n.isInitialized) {
-  i18n.use(initReactI18next).use(LanguageDetector).init({
-    resources: {
-      en: { common: enCommon },
-    },
-    lng: getStoredLanguage() || DEFAULT_LANG,
-    fallbackLng: DEFAULT_LANG,
-    ns: ['common'],
-    defaultNS: 'common',
-    interpolation: { escapeValue: false },
-    react: { useSuspense: false },
-  });
+  i18n
+    .use(initReactI18next)
+    .use(LanguageDetector)
+    .init({
+      resources: {
+        en: { common: enCommon },
+      },
+      lng: getStoredLanguage() || DEFAULT_LANG,
+      fallbackLng: DEFAULT_LANG,
+      ns: ['common'],
+      defaultNS: 'common',
+      interpolation: { escapeValue: false },
+      react: { useSuspense: false },
+    });
 
   loadedLanguages.add('en');
 }
@@ -36,7 +39,7 @@ if (!i18n.isInitialized) {
 /**
  * Dynamically loads a language translation bundle using Vite's dynamic import.
  * Prevents redundant loading by tracking already loaded languages.
- * 
+ *
  * @param {string} lang - The language code to load (e.g., 'es', 'fr')
  * @returns {Promise<void>} Resolves when language is loaded, rejects on error
  */
