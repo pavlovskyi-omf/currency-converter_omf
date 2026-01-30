@@ -28,7 +28,7 @@
     "summary_conversion": "{{primaryAmount}} {{primaryCurrency}} = {{secondaryAmount}} {{secondaryCurrency}}",
     "summary_final": "Final Amount: {{finalAmount}} {{secondaryCurrency}} (Fee: {{finalFee}} {{secondaryCurrency}})",
     "period_5": "5 Days",
-    "period_30": "1 Month"
-  },
-  "error": "Error"
+    "period_30": "1 Month",
+    "error": "Error"
+  }
 }
