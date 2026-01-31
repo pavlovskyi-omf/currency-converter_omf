@@ -1,61 +1,106 @@
 ---
-description: General coding standards and best practices for the project.
+description: Currency Converter app coding standards and Copilot guidance
 applyTo: "**"
 ---
 
-# Project general coding standards
+# Currency Converter — Copilot Instructions
 
-## Naming Conventions
-- Use PascalCase for React component filenames and component names (e.g., `CurrencyInput.jsx`, `CurrencyChart`).
-- Use camelCase for variables, functions, and methods.
-- Prefix private class members or internal-only variables with an underscore (`_`).
-- Use ALL_CAPS for repository-wide constants (e.g., `API_BASE_URL`) and place them in `src/constants.js` or `src/lib` as appropriate.
+> React + Vite currency converter using CurrencyBeacon API. This file helps Copilot generate code that matches project conventions.
 
-## Error Handling
-- Use try/catch for async operations and rethrow or return structured errors from library functions (see `src/hooks/useFetchCurrency/useFetchCurrency.js`).
-- Implement React error boundaries for top-level UI faults (wrap major areas in an Error Boundary component).
-- Always log errors with contextual information (component name, action, payload). Avoid leaking sensitive data.
+## Tech Stack
+- **Framework:** React 18 (functional components, hooks only)
+- **Build:** Vite with SWC
+- **Styling:** Tailwind CSS + shadcn/ui components (Radix primitives)
+- **Testing:** Vitest + React Testing Library
+- **Linting:** ESLint (Airbnb config) + Prettier
 
-## Project-specific conventions
-- Framework & tooling: This repo uses React (JSX) with Vite. Keep components functional and prefer hooks over class components.
-- File locations: keep components under `src/components/` (feature folders per component), hooks in `src/hooks/`, and pure helpers in `src/lib/`.
-- Data layer: Use `src/hooks/useFetchCurrency` for fetch logic and `src/lib/buildApiUrl.js` + `src/lib/mappers.js` for API URL building and response mapping.
+## Project Structure
+```
+src/
+├── components/          # Feature components (folder-per-component)
+│   ├── CurrencyInput/   # CurrencyInput.jsx + CurrencyInput.test.jsx
+│   ├── CurrencyChart/   # Recharts-based chart
+│   ├── CurrencyFee/
+│   ├── Skeleton/
+│   └── ui/              # shadcn/ui primitives (button, input, select, chart)
+├── hooks/
+│   └── useFetchCurrency/  # Data fetching with caching
+├── lib/
+│   ├── buildApiUrl.js   # API URL construction
+│   ├── mappers.js       # API response transformers
+│   └── utils.js         # cn() for Tailwind class merging
+constants.js             # API_KEY, API_URL (env-based)
+```
 
-## Components & Props
-- Prefer small, focused components. Pass primitive values as props and objects only when necessary.
-- Validate prop shapes with PropTypes where useful (this is a JS project). Keep props lists short (<= 6 recommended).
-- Use `data-testid` only when necessary for stable test selectors; prefer accessible queries in tests.
+## Naming & Code Style
+| Element | Convention | Example |
+|---------|------------|---------|
+| Component files | PascalCase | `CurrencyInput.jsx` |
+| Component folders | PascalCase | `src/components/CurrencyInput/` |
+| Hooks | camelCase, `use` prefix | `useFetchCurrency` |
+| Helper functions | camelCase | `buildApiUrl`, `mapCurrencyData` |
+| Constants | ALL_CAPS | `API_KEY`, `API_URL` |
+| Test files | `.test.jsx` / `.test.js` | `CurrencyInput.test.jsx` |
+
+## Component Guidelines
+- Use functional components with hooks — no class components
+- Validate props with `PropTypes` (import from `prop-types`)
+- Keep props ≤ 6; prefer primitives over objects
+- Use `@/` path alias for imports (`@/components/...`, `@/hooks/...`, `@/lib/...`)
+- Colocate tests: `ComponentName.test.jsx` in same folder
+
+## UI Components (shadcn/ui)
+- Located in `src/components/ui/` — Button, Input, Select, Chart
+- Use `cn()` from `@/lib/utils` for conditional Tailwind classes
+- Extend via `class-variance-authority` variants when needed
+
+## Data Flow
+1. **API URL:** `buildApiUrl(baseCurrency, targetCurrency, period)` in `src/lib/buildApiUrl.js`
+2. **Fetching:** `useFetchCurrency` hook with built-in caching (`useRef`)
+3. **Mapping:** `mapCurrencyData(apiResponse)` transforms raw API to `{ date, value }[]`
+4. **State:** Managed in `App.jsx` with `useState`; lifted only when necessary
+
+## API Integration
+- Endpoint: CurrencyBeacon timeseries API
+- Auth: `VITE_API_KEY` env variable (never commit actual key)
+- Always provide `.env.example` with placeholder values
+
+## Testing (Vitest)
+```bash
+npm run test        # Single run
+npm run test:watch  # Watch mode
+```
+- Mock `fetch` for hook tests; use `@testing-library/react` for component tests
+- Prefer accessible queries: `getByRole`, `getByLabelText` over `getByTestId`
+- Test user behavior, not implementation details
 
 ## Styling
-- Use Tailwind CSS (configured in `tailwind.config.js`). Prefer utility classes for layout and small visual tweaks.
-- Keep global styles in `src/App.css`. Avoid deep, theme-scoped selectors—create small presentational classes or utility components when needed.
+- Tailwind utility classes for layout and spacing
+- Custom colors defined in `tailwind.config.js` (e.g., `bg-custom-grey`)
+- Global overrides in `src/App.css` — keep minimal
 
-## Testing
-- Tests live alongside code with `.test.jsx`/`.test.js` suffixes (see `src/components/*/*.test.jsx`).
-- Use Jest + React Testing Library. Test behavior and accessibility, mock network calls for hooks and API logic.
+## Before Committing
+```bash
+npm run lint        # ESLint check
+npm run lint:fix    # Auto-fix
+npm run format      # Prettier
+npm run test        # Vitest
+```
 
-## Accessibility (a11y)
-- Provide semantic HTML and form labels. Ensure keyboard navigability and readable contrast.
-- Use ARIA attributes only when native semantics are insufficient.
+## Common Patterns
 
-## Internationalization
-- This repo contains HW items related to localization. Keep strings centralized if adding i18n (e.g., `public/locales` or a `src/i18n` folder).
+### Adding a new component
+1. Create folder: `src/components/MyComponent/`
+2. Add `MyComponent.jsx` with PropTypes
+3. Add `MyComponent.test.jsx` with RTL tests
+4. Import via `@/components/MyComponent/MyComponent`
 
-## Performance
-- Use `React.memo`, `useMemo`, and `useCallback` to avoid unnecessary re-renders for expensive components.
+### Adding a new hook
+1. Create folder: `src/hooks/useMyHook/`
+2. Export from `useMyHook.js`
+3. Add `useMyHook.test.jsx` for async/state testing
 
-## Environment & Secrets
-- Keep API keys and environment-specific values in environment variables (`.env`) and never commit secrets. If consumers need an example, add `.env.example` with placeholders.
-
-## Linting & Formatting
-- Follow the project's ESLint/Prettier settings. Run `npm run lint` and `npm run test` before opening PRs.
-
-## Commits & PRs
-- Keep commits small and focused with clear subjects. Use PRs for feature work and request a review; include a short description of what changed and why.
-
-## Where to find things
-- Components: `src/components/`
-- Hooks: `src/hooks/`
-- Lib/helpers: `src/lib/`
-- Tests: `*.test.jsx` next to implementation files
-- Styles: `src/App.css` and Tailwind config in `tailwind.config.js`
+### Extending API
+1. Update `buildApiUrl.js` for new params
+2. Add mapper in `mappers.js` if response shape differs
+3. Update or create hook for data fetching

@@ -1,6 +1,15 @@
 # Agents in this repository
 
-This project includes AI agent guidance and helper files used to automate planning and code tasks. This document explains conventions, where agents live, and how to add or update them.
+This project includes AI agent guidance and helper files used to automate planning and code tasks for the **Currency Converter** application (React + Vite + CurrencyBeacon API). This document explains conventions, where agents live, and how to add or update them.
+
+## Available Agents
+
+| Agent | File | Purpose |
+|-------|------|---------|
+| Planning | `.github/agents/planner.agent.md` | Generate implementation plans for new features |
+| Code Review | `.github/agents/code-review.agent.md` | Review PRs for conventions, quality, and accessibility |
+| Debug | `.github/agents/debug.agent.md` | Systematically identify and fix bugs |
+| Pull Request | `.github/agents/pull-request.agent.md` | Create PRs for proposed changes after code review |
 
 ## Purpose
 - Document AI agent files and conventions used by contributors and automated tooling.
@@ -35,7 +44,20 @@ scope: repo
 - Minimal template to copy into a new agent file:
 
 ```
+---
+name: <agent-name>
+description: "<one-sentence description>"
+tools: [<list of tools>]
+infer: true
+---
+
 # Agent: <name>
+
+## Project Context
+- **Framework**: React 18 with Vite + SWC
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Testing**: Vitest + React Testing Library
+- **API**: CurrencyBeacon timeseries API
 
 Goal
 - One-sentence description of what the agent should accomplish.
@@ -50,7 +72,11 @@ Steps
 - Short, numbered plan the agent should follow.
 
 Constraints
-- Project-specific conventions to respect (tests, linting, commit messages, env files).
+- PascalCase components, camelCase functions, ALL_CAPS constants
+- Tests colocated as `*.test.jsx`
+- Use `@/` path alias for imports
+- Mock `fetch` for API tests
+- Run `npm run lint` and `npm run test` before PRs
 ```
 
 ## Adding or updating an agent
