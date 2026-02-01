@@ -2,6 +2,9 @@
 
 This is a currency conversion and chart visualization project that allows users to convert values between different currencies and view the exchange rate over different periods. The project was built using Vite + React and leverages the [Currency Beacon API](https://currencybeacon.com/) to fetch real-time exchange rates.
 
+![Currency converter app interface showing controls to enter an amount and choose source and target currencies, a displayed conversion result, and a time-series line chart plotting exchange rate trends with labeled axes and a date-range selector. Visible on-screen text includes headings like Currency Converter, labels such as Amount, From, To, a Convert button, sample currency codes (for example USD and EUR), and a chart legend indicating the exchange rate over a selected period. The layout appears clean and professional, informative in tone.](./assets/screenshots/currency-converter_screenshot.jpg)
+
+
 ## Features
 
 - **Currency Conversion**: Convert values between various currencies.
