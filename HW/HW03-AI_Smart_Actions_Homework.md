@@ -1,4 +1,4 @@
-# 🏠 Homework: GitHub Copilot – AI Smart Actions
+# 🏠 Home Task 03: GitHub Copilot – AI Smart Actions
 
 ## 🎯 Goal
 Practice using **GitHub Copilot AI Smart Actions** directly in your IDE to speed up common development tasks such as commits, documentation, testing, reviews, and debugging. Reflect on how these actions can improve your daily workflow.
