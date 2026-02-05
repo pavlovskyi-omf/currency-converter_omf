@@ -20,7 +20,7 @@ const useFetchCurrency = (baseCurrency, targetCurrency) => {
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Erro ao buscar os dados');
+        throw new Error('fetchError');
       }
       const result = await response.json();
       const mappedData = mapCurrencyData(result);
